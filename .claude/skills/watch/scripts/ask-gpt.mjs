@@ -3,6 +3,7 @@
 // 使い方: node ask-gpt.mjs [--followup] < briefing.md
 //   --followup  前回の協議履歴を引き継いで再質問する
 // 環境変数:
+//   WATCH_GPT=dot    ローカル GPT「Dot」を使う（dot-server.mjs で起動したサーバーに接続。DOT_PORT 省略時 8089）
 //   OPENAI_BASE_URL  ローカル GPT の OpenAI 互換エンドポイント（例 Ollama: http://localhost:11434/v1,
 //                    LM Studio: http://localhost:1234/v1）。省略時は https://api.openai.com/v1
 //   OPENAI_API_KEY   OpenAI 本家を使うときは必須。ローカル GPT では不要
@@ -25,10 +26,15 @@ const SYSTEM_PROMPT = `あなたはソフトウェア開発の相談役です。
 事実が足りない場合は、推測で埋めずに「追加で確認すべきこと」を挙げてください。`;
 
 const followup = process.argv.includes('--followup');
-const apiKey = process.env.OPENAI_API_KEY;
-const isLocal = Boolean(process.env.OPENAI_BASE_URL);
-const model = process.env.OPENAI_MODEL || (isLocal ? '' : 'gpt-4o');
-const baseUrl = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/$/, '');
+const useDot = process.env.WATCH_GPT === 'dot';
+const apiKey = useDot ? undefined : process.env.OPENAI_API_KEY;
+const isLocal = useDot || Boolean(process.env.OPENAI_BASE_URL);
+const model = useDot ? 'dot' : process.env.OPENAI_MODEL || (isLocal ? '' : 'gpt-4o');
+const baseUrl = (
+  useDot
+    ? `http://127.0.0.1:${process.env.DOT_PORT || '8089'}/v1`
+    : process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1'
+).replace(/\/$/, '');
 
 const input = readFileSync(0, 'utf8').trim();
 if (!input) {

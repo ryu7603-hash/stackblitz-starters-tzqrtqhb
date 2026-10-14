@@ -84,6 +84,20 @@ EOF
 
 ## 設定
 
+### ローカル GPT「Dot」を使う場合（推奨）
+Dot は外部 API を持たないため、Dot と同じモデル（GGUF）を llama.cpp で API として公開して使う。
+PC 上で動く Claude Code セッション（Claude Desktop アプリ、または `claude remote-control`）で行う。
+
+1. llama.cpp をインストール（macOS: `brew install llama.cpp`、Windows: `winget install llama.cpp`）
+2. 別ターミナルでサーバーを起動したままにする: `node .claude/skills/watch/scripts/dot-server.mjs`
+   - モデルは Dot の設定（設定画面で選んだファイル）→ `書類/Dot-Data/*.gguf` の順に自動で探す
+   - 見つからなければ `DOT_MODEL_PATH` で指定。見つかったパスの確認は `--print`
+3. Claude Code 側で環境変数 `WATCH_GPT=dot` を設定する（ポートを変えたら `DOT_PORT` も）
+4. 疎通確認: `echo "テスト" | WATCH_GPT=dot node .claude/skills/watch/scripts/ask-gpt.mjs`
+
+`/watch` の各チェックの最初に `curl -s http://127.0.0.1:${DOT_PORT:-8089}/health` でサーバーの生存を確認し、
+落ちていれば `dot-server.mjs` をバックグラウンドで起動し直してから協議する。
+
 ### ローカル GPT（この PC 上の Ollama / LM Studio など）を使う場合
 ローカル GPT には PC 上で動く Claude Code セッションからしか届かない。クラウドセッションからは使えない。
 Claude Desktop アプリ、またはリポジトリのフォルダで `claude remote-control` を起動して、そのセッションで `/watch` を使う。
