@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# /watch の GPT 協議履歴（API 応答を含むためコミットしない）
+.claude/watch/gpt-history.json
