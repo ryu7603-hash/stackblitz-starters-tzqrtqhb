@@ -50,7 +50,7 @@ EOF
 - GPT は「原因分析」「取るべき案と理由」「リスク」「人間の判断が必要か」を返す
 - GPT の回答はあくまで参考意見として扱う。自分の分析と突き合わせて、根拠のより強い案を採る
 - 意見が割れたときは、論点を絞って 1〜2 往復まで再質問する（`--followup` で前回の文脈を引き継ぐ）
-- `OPENAI_API_KEY` が未設定、または API に接続できないとき: その旨を STATE.md に 1 回だけ記録し、Claude 単独で判断して続行する
+- GPT が未設定（終了コード 2）、または接続できないとき（終了コード 3）: その旨を STATE.md に 1 回だけ記録し、Claude 単独で判断して続行する
 
 ### 4. 実行する
 決めた案を実行する。
@@ -84,6 +84,18 @@ EOF
 
 ## 設定
 
-- `OPENAI_API_KEY`: GPT 協議に使う。クラウド環境の設定で環境変数として登録する（チャットには貼らない）
-- `OPENAI_MODEL`: 使うモデル。省略時は `gpt-4o`
-- ネットワーク: クラウド環境では `api.openai.com` を許可ドメインに追加する
+### ローカル GPT（この PC 上の Ollama / LM Studio など）を使う場合
+ローカル GPT には PC 上で動く Claude Code セッションからしか届かない。クラウドセッションからは使えない。
+Claude Desktop アプリ、またはリポジトリのフォルダで `claude remote-control` を起動して、そのセッションで `/watch` を使う。
+
+環境変数（PC 側で設定）:
+- `OPENAI_BASE_URL`: OpenAI 互換エンドポイント。Ollama は `http://localhost:11434/v1`、LM Studio は `http://localhost:1234/v1`
+- `OPENAI_MODEL`: モデル名（必須。例 `gpt-oss:20b`）
+- `OPENAI_API_KEY`: 不要
+
+疎通確認: `echo "テスト" | node .claude/skills/watch/scripts/ask-gpt.mjs`
+
+### OpenAI API を使う場合
+- `OPENAI_API_KEY`: 環境設定に環境変数として登録する（チャットには貼らない）
+- `OPENAI_MODEL`: 省略時は `gpt-4o`
+- クラウド環境では `api.openai.com` を許可ドメインに追加する

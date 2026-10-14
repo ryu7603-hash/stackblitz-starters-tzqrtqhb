@@ -2,8 +2,12 @@
 // 停滞している作業について GPT に相談する。
 // 使い方: node ask-gpt.mjs [--followup] < briefing.md
 //   --followup  前回の協議履歴を引き継いで再質問する
-// 環境変数: OPENAI_API_KEY（必須）, OPENAI_MODEL（省略時 gpt-4o）, OPENAI_BASE_URL（省略可）
-// 終了コード: 0 成功 / 1 入力なし / 2 API キー未設定 / 3 API 呼び出し失敗
+// 環境変数:
+//   OPENAI_BASE_URL  ローカル GPT の OpenAI 互換エンドポイント（例 Ollama: http://localhost:11434/v1,
+//                    LM Studio: http://localhost:1234/v1）。省略時は https://api.openai.com/v1
+//   OPENAI_API_KEY   OpenAI 本家を使うときは必須。ローカル GPT では不要
+//   OPENAI_MODEL     使うモデル名（ローカルでは必須。例 gpt-oss:20b）。本家で省略時は gpt-4o
+// 終了コード: 0 成功 / 1 入力なし / 2 設定不足 / 3 API 呼び出し失敗
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -22,7 +26,8 @@ const SYSTEM_PROMPT = `あなたはソフトウェア開発の相談役です。
 
 const followup = process.argv.includes('--followup');
 const apiKey = process.env.OPENAI_API_KEY;
-const model = process.env.OPENAI_MODEL || 'gpt-4o';
+const isLocal = Boolean(process.env.OPENAI_BASE_URL);
+const model = process.env.OPENAI_MODEL || (isLocal ? '' : 'gpt-4o');
 const baseUrl = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/$/, '');
 
 const input = readFileSync(0, 'utf8').trim();
@@ -30,8 +35,12 @@ if (!input) {
   console.error('ask-gpt: 標準入力に相談内容を渡してください');
   process.exit(1);
 }
-if (!apiKey) {
-  console.error('ask-gpt: OPENAI_API_KEY が未設定です。GPT 協議をスキップしてください');
+if (!isLocal && !apiKey) {
+  console.error('ask-gpt: OPENAI_BASE_URL（ローカル GPT）も OPENAI_API_KEY も未設定です。GPT 協議をスキップしてください');
+  process.exit(2);
+}
+if (!model) {
+  console.error('ask-gpt: ローカル GPT を使うときは OPENAI_MODEL にモデル名を指定してください');
   process.exit(2);
 }
 
@@ -45,7 +54,10 @@ let res;
 try {
   res = await fetch(`${baseUrl}/chat/completions`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
+    },
     body: JSON.stringify({ model, messages }),
   });
 } catch (err) {
