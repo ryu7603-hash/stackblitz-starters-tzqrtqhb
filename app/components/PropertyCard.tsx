@@ -1,13 +1,6 @@
 import Link from "next/link";
 
-type Property = {
-  id: number;
-  city: string;
-  title: string;
-  price: number;
-  layout: string;
-  land: number;
-};
+import { Property } from "../types/property";
 
 export default function PropertyCard({
   property,
@@ -48,4 +41,4 @@ export default function PropertyCard({
       </div>
     </Link>
   );
-}
+}

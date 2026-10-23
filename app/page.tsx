@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-import Header from "./components/Header";
 import SearchBox from "./components/SearchBox";
 import PropertyGrid from "./components/PropertyGrid";
+import AffiliateBox from "./components/AffiliateBox";
 
 import { properties } from "./data/properties";
 
@@ -25,8 +25,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-100">
 
-      <Header />
-
       <div className="max-w-7xl mx-auto p-6">
 
         <SearchBox
@@ -45,6 +43,8 @@ export default function Home() {
         <PropertyGrid
           properties={filtered}
         />
+
+        <AffiliateBox ids={["moving", "internet"]} />
 
       </div>
 

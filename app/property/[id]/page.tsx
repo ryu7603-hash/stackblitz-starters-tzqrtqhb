@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import AffiliateBox from "../../components/AffiliateBox";
 import { properties } from "../../data/properties";
 
 type Props = {
@@ -8,6 +10,25 @@ type Props = {
     id: string;
   };
 };
+
+export function generateStaticParams() {
+  return properties.map((property) => ({ id: String(property.id) }));
+}
+
+export function generateMetadata({ params }: Props): Metadata {
+  const property = properties.find(
+    (p) => p.id === Number(params.id)
+  );
+
+  if (!property) {
+    return {};
+  }
+
+  return {
+    title: `${property.city}の${property.title}（${property.price}万円・${property.layout}）`,
+    description: property.description,
+  };
+}
 
 export default function PropertyPage({ params }: Props) {
   const property = properties.find(
@@ -70,7 +91,9 @@ export default function PropertyPage({ params }: Props) {
           </div>
 
         </div>
+
+        <AffiliateBox ids={["reform", "insurance", "moving"]} />
       </div>
     </main>
   );
-}
+}
