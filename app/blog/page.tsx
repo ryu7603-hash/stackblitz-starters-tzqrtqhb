@@ -4,15 +4,15 @@ import Link from "next/link";
 import { posts } from "../data/posts";
 
 export const metadata: Metadata = {
-  title: "移住・二拠点生活コラム",
-  description: "空き家購入、二拠点生活、古民家リノベに役立つ情報をまとめています。",
+  title: "醤油コラム",
+  description: "醤油の種類・食べ比べ方・使い分けなど、調味料選びが楽しくなる情報をまとめています。",
 };
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-slate-100">
+    <main className="min-h-screen bg-amber-50">
       <div className="max-w-4xl mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-6">移住・二拠点生活コラム</h1>
+        <h1 className="text-3xl font-bold mb-6">醤油コラム</h1>
 
         <div className="space-y-4">
           {posts.map((post) => (

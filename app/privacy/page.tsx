@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-slate-100">
+    <main className="min-h-screen bg-amber-50">
       <div className="max-w-3xl mx-auto p-6">
         <div className="bg-white rounded-xl shadow p-8 leading-8 space-y-4">
           <h1 className="text-3xl font-bold">プライバシーポリシー・広告について</h1>
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
 
           <h2 className="text-xl font-bold pt-4">免責事項</h2>
           <p>
-            掲載している物件情報・制度情報は掲載時点のものです。最新の情報や契約条件は、各自治体の空き家バンクや提供事業者に必ずご確認ください。当サイトの情報を利用して生じた損害について、当サイトは責任を負いかねます。
+            味の感じ方には個人差があります。紹介している商品の価格・内容・在庫は変わることがあるため、購入前に販売ページで最新の情報をご確認ください。当サイトの情報を利用して生じた損害について、当サイトは責任を負いかねます。
           </p>
         </div>
       </div>

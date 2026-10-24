@@ -38,9 +38,9 @@ export default function PostPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-slate-100">
+    <main className="min-h-screen bg-amber-50">
       <div className="max-w-3xl mx-auto p-6">
-        <Link href="/blog" className="text-emerald-700 hover:underline">
+        <Link href="/blog" className="text-amber-800 hover:underline">
           ← コラム一覧へ戻る
         </Link>
 
@@ -56,7 +56,7 @@ export default function PostPage({ params }: Props) {
               switch (block.type) {
                 case "h2":
                   return (
-                    <h2 key={i} className="text-2xl font-bold mt-10 mb-4 border-l-4 border-emerald-700 pl-3">
+                    <h2 key={i} className="text-2xl font-bold mt-10 mb-4 border-l-4 border-amber-800 pl-3">
                       {block.text}
                     </h2>
                   );
@@ -79,10 +79,10 @@ export default function PostPage({ params }: Props) {
 
         <div className="mt-6 text-center">
           <Link
-            href="/"
-            className="inline-block bg-emerald-700 text-white px-6 py-3 rounded-lg hover:bg-emerald-800"
+            href="/shindan"
+            className="inline-block bg-amber-900 text-white px-6 py-3 rounded-lg hover:bg-amber-950"
           >
-            千葉の空き家物件を探す
+            あなたに合う醤油を診断する
           </Link>
         </div>
       </div>
