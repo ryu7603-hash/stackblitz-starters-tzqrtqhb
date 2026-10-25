@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import AffiliateBox from "./components/AffiliateBox";
+import EbookBox from "./components/EbookBox";
 import SoyTypeCard from "./components/SoyTypeCard";
 import WaitlistBox from "./components/WaitlistBox";
 import { posts } from "./data/posts";
@@ -41,6 +42,7 @@ export default function Home() {
         <AffiliateBox ids={["starterSet", "miniBottles"]} />
 
         <WaitlistBox />
+        <EbookBox />
 
         <section>
           <h2 className="text-2xl font-bold mb-6">コラム</h2>

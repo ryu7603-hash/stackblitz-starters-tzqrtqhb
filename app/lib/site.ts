@@ -7,4 +7,6 @@ export const site = {
   adsenseClient: process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "",
   // 「一食分の食べ比べセット」予約受付フォーム（Googleフォーム等）のURL
   waitlistUrl: process.env.NEXT_PUBLIC_WAITLIST_URL ?? "",
+  // Kindle本「いつもの調味料、変えてみる。」のAmazon商品ページURL（出版後に設定）
+  ebookUrl: process.env.NEXT_PUBLIC_EBOOK_URL ?? "",
 };

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import AffiliateBox from "../components/AffiliateBox";
+import EbookBox from "../components/EbookBox";
 import SoyTypeCard from "../components/SoyTypeCard";
 import WaitlistBox from "../components/WaitlistBox";
 import { getSoyType, SoyTypeId } from "../data/soy";
@@ -80,6 +81,7 @@ export default function Quiz() {
         </p>
         <AffiliateBox ids={["starterSet", "kioke"]} />
         <WaitlistBox />
+        <EbookBox />
         <button
           onClick={() => setAnswers([])}
           className="mt-6 w-full border border-amber-900 text-amber-900 font-bold rounded-lg p-3 hover:bg-amber-100"

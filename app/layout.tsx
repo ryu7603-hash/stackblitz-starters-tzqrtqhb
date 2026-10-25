@@ -19,19 +19,9 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: site.name,
     locale: 'ja_JP',
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
   },
   twitter: {
-    card: 'summary_large_image',
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
+    card: 'summary',
   },
 };
 

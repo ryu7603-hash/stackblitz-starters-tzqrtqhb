@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: site.url },
     { url: `${site.url}/shindan` },
     { url: `${site.url}/blog` },
+    { url: `${site.url}/privacy` },
     ...posts.map((post) => ({
       url: `${site.url}/blog/${post.slug}`,
       lastModified: post.date,
