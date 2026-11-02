@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { properties } from "../../data/properties";
+import { formatArea, formatPrice } from "../../lib/format";
 
 type Props = {
   params: {
@@ -46,12 +47,12 @@ export default function PropertyPage({ params }: Props) {
           </h2>
 
           <p className="text-emerald-700 text-5xl font-bold mt-6">
-            {property.price}万円
+            {formatPrice(property.price)}
           </p>
 
           <div className="mt-6 space-y-2 text-lg">
             <p>間取り：{property.layout}</p>
-            <p>土地：{property.land}㎡</p>
+            <p>土地：{formatArea(property.land)}</p>
           </div>
 
           <hr className="my-8" />

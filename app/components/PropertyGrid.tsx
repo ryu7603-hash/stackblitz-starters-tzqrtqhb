@@ -1,25 +1,16 @@
 import PropertyCard from "./PropertyCard";
 
-type Property = {
-  city: string;
-  title: string;
-  price: number;
-  layout: string;
-  land: number;
+import { Property } from "../types/property";
+
+type Props = {
+  properties: Property[];
 };
 
-export default function PropertyGrid({
-  properties,
-}: {
-  properties: Property[];
-}) {
+export default function PropertyGrid({ properties }: Props) {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {properties.map((property, index) => (
-        <PropertyCard
-          key={index}
-          property={property}
-        />
+      {properties.map((property) => (
+        <PropertyCard key={property.id} property={property} />
       ))}
     </div>
   );
