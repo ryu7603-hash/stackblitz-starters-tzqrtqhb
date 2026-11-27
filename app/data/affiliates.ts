@@ -37,6 +37,34 @@ export const affiliates = {
     cta: "だし醤油のお試しを見る",
     url: process.env.NEXT_PUBLIC_AFF_DASHI ?? "",
   },
+  saishikomi: {
+    id: "saishikomi",
+    label: "再仕込醤油（甘露醤油）",
+    description: "醤油で醤油を仕込む、濃厚な味わいの一本。刺身や冷奴にかけると、いつもの濃口との違いがはっきり分かります。",
+    cta: "再仕込醤油を見る",
+    url: process.env.NEXT_PUBLIC_AFF_SAISHIKOMI ?? "",
+  },
+  shiro: {
+    id: "shiro",
+    label: "白醤油",
+    description: "琥珀色の淡い醤油。料理に色を付けずに、甘みと香りを足したいときに便利です。",
+    cta: "白醤油を見る",
+    url: process.env.NEXT_PUBLIC_AFF_SHIRO ?? "",
+  },
+  lowSalt: {
+    id: "lowSalt",
+    label: "減塩醤油",
+    description: "塩分を控えめにした醤油。普段の醤油と並べて味の違いを確かめてから切り替えると失敗しにくいです。",
+    cta: "減塩醤油を見る",
+    url: process.env.NEXT_PUBLIC_AFF_LOW_SALT ?? "",
+  },
+  freshBottle: {
+    id: "freshBottle",
+    label: "密封ボトル入りの醤油",
+    description: "開けたあとも空気に触れにくい二重構造の容器入り。少しずつ使う家庭でも、色と香りが変わりにくいのが魅力です。",
+    cta: "密封ボトルの醤油を見る",
+    url: process.env.NEXT_PUBLIC_AFF_FRESH_BOTTLE ?? "",
+  },
 } satisfies Record<string, AffiliateOffer>;
 
 export type AffiliateId = keyof typeof affiliates;
