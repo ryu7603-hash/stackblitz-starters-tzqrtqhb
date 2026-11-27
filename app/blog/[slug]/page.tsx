@@ -72,6 +72,14 @@ export default function PostPage({ params }: Props) {
                   );
                 case "affiliate":
                   return <AffiliateBox key={i} ids={block.ids} />;
+                case "link":
+                  return (
+                    <p key={i} className="my-4">
+                      <Link href={block.href} className="text-amber-800 font-bold hover:underline">
+                        → {block.text}
+                      </Link>
+                    </p>
+                  );
               }
             })}
           </div>
